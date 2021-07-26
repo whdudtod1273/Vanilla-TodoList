@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vanilla-TodoList</title>
+</head>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  ol,
+  ul {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  img {
+    vertical-align: middle;
+  }
+
+  .cb::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  input {
+    border: none;
+    outline: none;
+  }
+
+  button {
+    border: none;
+    background: transparent;
+  }
+
+  .ctW {
+    width: 100%;
+    position: relative;
+  }
+
+  .ct {
+    width: 1272px;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .ct::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+
+  textarea {
+    border: none;
+    resize: none;
+  }
+
+  textarea:focus {
+    outline: none;
+  }
+</style>
+
+<body>
+  <div id="app"></div>
+  <script src="/dist/app.js"></script>
+</body>
+
+</html>
