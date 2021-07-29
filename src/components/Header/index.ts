@@ -1,9 +1,8 @@
-import Controller from '../controller';
-
+import './header.scss';
 export default class Header {
   template() {
     return `
-      <div>
+      <div class="header">
         nav
       </div>
     `;
