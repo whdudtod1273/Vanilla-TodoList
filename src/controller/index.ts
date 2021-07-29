@@ -2,12 +2,12 @@ export default class Controller {
   target: any;
   state: any;
   app: HTMLElement | null;
-  header: any;
+  aside: any;
 
-  constructor(target: any, { header }: any) {
+  constructor(target: any, aside: any) {
     this.app = document.getElementById('app');
     this.target = target;
-    this.header = header.prototype;
+    this.aside = aside;
 
     this.state;
     this.data();
@@ -15,7 +15,7 @@ export default class Controller {
   }
   data() {}
   async render() {
-    this.target.innerHTML = this.header.template() + this.template();
+    this.target.innerHTML = this.aside.template() + this.template();
     this.event();
   }
 

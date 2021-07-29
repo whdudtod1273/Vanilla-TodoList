@@ -7,9 +7,11 @@ export default class Test extends Controller {
   template() {
     const { item } = this.state;
     return `
+    <main>
       <div>test</div>
       <span>${item}</span>
       <button>클릭</button>
+    </main>
     `;
   }
   event() {

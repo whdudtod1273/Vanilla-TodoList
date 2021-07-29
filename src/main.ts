@@ -1,6 +1,7 @@
 import Test from './components/Test';
 import Home from './views/home/index';
 import Router from './router/index';
+import './style/app.scss';
 
 document.addEventListener('DOMContentLoaded', main);
 
