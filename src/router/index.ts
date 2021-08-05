@@ -1,3 +1,4 @@
+import InputBox from '../components/InputBox';
 import Aside from '../components/Aside';
 import Controller from '../controller/index';
 export default class Router {
@@ -5,7 +6,7 @@ export default class Router {
   pages: any;
   app: HTMLElement | null;
   view: any;
-  aside: Aside | undefined;
+
   constructor({ pages }: any) {
     this.app = document.getElementById('app');
 
@@ -18,16 +19,13 @@ export default class Router {
   }
   route() {
     this.nowPagePath = window.location.hash.replace('#', '');
-    const aside = new Aside(this.nowPagePath);
 
     if (this.nowPagePath === '') {
-      const current = this.pages[0].page;
-      new current(this.app, aside);
-      new Controller(current, aside);
+      const page = this.pages[0].page;
+      new page(this.app);
     } else {
       const { page } = this.pages.find((page: { path: string }) => page.path === this.nowPagePath);
-      new page(this.app, aside);
-      new Controller(page, aside);
+      new page(this.app);
     }
   }
 }

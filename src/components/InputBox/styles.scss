@@ -1,0 +1,44 @@
+.inputBox {
+  border-radius: 20px;
+  background-color: #fff;
+  padding: 2rem;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+  input {
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+  }
+  textarea {
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+  }
+  h2 {
+    font-size: 20px;
+    color: #2e2e2e;
+    line-height: 1;
+    padding-bottom: 10px;
+  }
+  .rowBox {
+    padding-bottom: 25px;
+    &:last-child {
+      padding-bottom: 0;
+    }
+    .titleInputWrap {
+    }
+    .contentInputWrap {
+    }
+  }
+  .registButton {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: rosybrown;
+    color: #fff;
+    font-size: 17px;
+  }
+}

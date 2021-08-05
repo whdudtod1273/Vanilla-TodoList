@@ -1,5 +1,7 @@
 aside {
   position: fixed;
+  top: 50px;
+  left: 0;
   width: 300px;
   height: 100%;
   padding: 0 40px;
@@ -10,9 +12,9 @@ aside {
     padding-top: 70px;
     ul {
       background-color: #fff;
-      box-shadow: 2px 2px 10px 2px rgba($color: #cacaca, $alpha: 1);
-      padding: 20px 20px 150px;
       border-radius: 15px;
+      // box-shadow: 2px 2px 10px 2px rgba($color: #cacaca, $alpha: 1);
+      // padding: 20px 20px 150px;
       li {
         display: flex;
         flex: 1;

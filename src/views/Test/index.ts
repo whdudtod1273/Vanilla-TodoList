@@ -1,4 +1,4 @@
-import Controller from '../controller/index';
+import Controller from '../../controller/index';
 
 export default class Test extends Controller {
   data() {
@@ -7,7 +7,7 @@ export default class Test extends Controller {
   template() {
     const { item } = this.state;
     return `
-    <main>
+    <main data-id="main">
       <div>test</div>
       <span>${item}</span>
       <button>클릭</button>

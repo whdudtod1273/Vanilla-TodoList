@@ -1,31 +1,50 @@
+import Aside from '../components/Aside';
+
 export default class Controller {
   target: any;
+  props: any;
   state: any;
   app: HTMLElement | null;
-  aside: any;
 
-  constructor(target: any, aside: any) {
+  constructor(target: any, props: any) {
     this.app = document.getElementById('app');
     this.target = target;
-    this.aside = aside;
-
+    this.props = props;
     this.state;
     this.data();
     this.render();
+    this.aside();
   }
   data() {}
-  async render() {
-    this.target.innerHTML = this.aside.template() + this.template();
-    this.event();
-  }
+  mounted() {}
+  event() {}
 
   template() {
     return ``;
   }
 
+  render() {
+    this.target.innerHTML = this.template();
+    this.event();
+    this.mounted();
+    this.aside();
+  }
+
   setState(data: any) {
     this.state = { ...this.state, ...data };
+
     this.render();
   }
-  event() {}
+
+  aside() {
+    const sideMenu = document.getElementById('sideMenu');
+    const asideComponent = new Aside();
+    const asideTag = document.createElement('aside');
+    asideTag.setAttribute('id', 'sideMenu');
+    if (!sideMenu) {
+      if (this.app) this.app.appendChild(asideTag);
+    }
+
+    if (sideMenu) sideMenu.innerHTML = asideComponent.template();
+  }
 }

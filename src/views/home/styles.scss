@@ -1,0 +1,10 @@
+.home {
+  display: flex;
+  .inputContainer {
+    width: 350px;
+  }
+  .listContainer {
+    flex: 1;
+    padding-left: 30px;
+  }
+}
