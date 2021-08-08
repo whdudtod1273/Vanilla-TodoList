@@ -3,7 +3,7 @@ import storage from '../../model/storage';
 import './styles.scss';
 
 export default class InputBox extends Controller {
-  storage: { lists: { title: string; content: string }[] };
+  storage: { lists: { id: number; title: string; content: string }[] };
   constructor(target: any, props: any) {
     super(target, props);
     this.target = target;
@@ -11,7 +11,7 @@ export default class InputBox extends Controller {
     this.storage = storage;
   }
   data() {
-    this.state = { lists: [{ title: '', content: '' }] };
+    this.state = { lists: [{ id: 0, title: '', content: '' }] };
   }
   template() {
     return `
@@ -39,7 +39,8 @@ export default class InputBox extends Controller {
     const button = this.target.querySelector('.registButton');
 
     button.addEventListener('click', () => {
-      this.storage.lists.push({ title: titleInput.value, content: contentInput.value });
+      const id = storage.lists[storage.lists.length - 1]['id'] + 1;
+      this.storage.lists.push({ id: id, title: titleInput.value, content: contentInput.value });
       this.props.setState(this.storage.lists);
     });
   }

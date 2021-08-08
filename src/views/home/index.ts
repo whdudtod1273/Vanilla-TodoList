@@ -3,8 +3,10 @@ import InputBox from '../../components/InputBox';
 import Controller from '../../controller/index';
 import './styles.scss';
 export default class Home extends Controller {
+  listBox: any;
   constructor(target: any, props: null) {
     super(target, props);
+    this.listBox;
   }
 
   template() {
@@ -25,6 +27,7 @@ export default class Home extends Controller {
     const listContainer = this.target.querySelector('[data-id="list-container"]');
     const inputBox = new InputBox(inputContainer, this);
     const listBox = new ListBox(listContainer, this);
+    this.listBox = listBox;
   }
 
   setData() {}
