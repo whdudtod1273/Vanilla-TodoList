@@ -25,15 +25,12 @@ export default class ItemBox {
   }
   event() {
     this.target.addEventListener('click', (e: any) => {
-      if (Number(e.target.dataset.id) === this.item.id) {
+      if (Number(e.target.dataset.id) === this.item.id && e.target.classList.value === 'removeBtn') {
         const newData = storage.lists.filter((item) => {
           return item.id !== Number(e.target.dataset.id);
         });
         storage.lists = newData;
         this.listBox.itemBoxRender(storage.lists);
-        console.log(this.item.id);
-        console.log(storage.lists);
-        console.log(e.target);
       }
     });
   }
