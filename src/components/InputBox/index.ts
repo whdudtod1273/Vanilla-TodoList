@@ -4,15 +4,22 @@ import './styles.scss';
 
 export default class InputBox extends Controller {
   storage: { lists: { id: number; title: string; content: string }[] };
+  titleInput: any;
   constructor(target: any, props: any) {
     super(target, props);
     this.target = target;
     this.props = props;
     this.storage = storage;
+    this.titleInput;
   }
   data() {
     this.state = { lists: [{ id: 0, title: '', content: '' }] };
   }
+
+  mounted() {
+    this.titleInput.focus();
+  }
+
   template() {
     return `
     <div class="inputBox">
@@ -34,13 +41,13 @@ export default class InputBox extends Controller {
   }
 
   event() {
-    const titleInput = this.target.querySelector('.titleInput');
+    this.titleInput = this.target.querySelector('.titleInput');
     const contentInput = this.target.querySelector('.contentInput');
     const button = this.target.querySelector('.registButton');
 
     button.addEventListener('click', () => {
       const id = storage.lists[storage.lists.length - 1]['id'] + 1;
-      this.storage.lists.push({ id: id, title: titleInput.value, content: contentInput.value });
+      this.storage.lists.push({ id: id, title: this.titleInput.value, content: contentInput.value });
       this.props.setState(this.storage.lists);
     });
   }
