@@ -14,13 +14,67 @@ export default class ListBox extends Controller {
     const { lists } = this.state;
 
     return `
-    <div class="listBox">
+    <div class="listBox" droppable="true">
       ${lists
         .map((item: any, index: any) => this.itemBox(item, index, this.target))
         .filter((item: any, index: number) => index !== 0)
         .join('')}
      </div>
     `;
+  }
+  dragStart(e: any) {
+    if (e.target.className === 'itemBox') {
+      console.log('drag start', e.target);
+      e.dataTransfer.setData('text', e.target.id);
+      e.target.classList.add('drapOver');
+      e.effectAllowed = 'copyMove';
+    }
+  }
+  dragOver(e: any) {
+    e.preventDefault();
+
+    if (e.target.className === 'itemBox') {
+      e.target.classList.add('drapOver');
+    }
+  }
+  drop(e: any) {
+    e.preventDefault();
+
+    if (e.target.className === 'listBox') {
+      const id = e.dataTransfer.getData('text/plain');
+      const elDraggable = document.getElementById(id);
+
+      e.target.classList.remove('drapOver');
+      // const targetItemBox = document.querySelector('.drapOver');
+      // targetItemBox?.classList.remove('drapOver');
+
+      e.dataTransfer.clearData();
+    }
+  }
+  dragLeave(e: any) {
+    e.preventDefault();
+    console.log('dragLeave', e.target.classList);
+
+    if (e.target.classList[0] === 'itemBox') {
+      console.log(e.target.classList);
+
+      e.target.classList.remove('drapOver');
+    }
+  }
+  dragEnd(e: any) {
+    e.target.classList.remove('drapOver');
+  }
+
+  event() {
+    if (this.target.childNodes[1].classList[0] === 'listBox') {
+      this.target.addEventListener('dragstart', this.dragStart);
+      console.log(this.target);
+
+      this.target.addEventListener('dragover', this.dragOver, false);
+      this.target.addEventListener('drop', this.drop);
+      this.target.addEventListener('dragend', this.dragEnd);
+      document.addEventListener('dragleave', this.dragLeave);
+    }
   }
 
   itemBox(item: any, index: any, target: any) {
@@ -30,11 +84,6 @@ export default class ListBox extends Controller {
     return itemBox.template();
   }
   itemBoxRender(data: any) {
-    // const { lists } = this.state;
     this.setState({ lists: data });
-    // console.log('list Data', this.state);
-    // console.log(storage.lists);
-    // console.log(this.state);
-    // console.log(data);
   }
 }

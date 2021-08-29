@@ -6,5 +6,12 @@ const storage = {
       content: '',
     },
   ],
+  confirmData: [
+    {
+      id: 0,
+      title: '',
+      content: '',
+    },
+  ],
 };
 export default storage;

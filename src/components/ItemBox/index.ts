@@ -16,7 +16,7 @@ export default class ItemBox {
   }
   template() {
     return `
-    <div data-id="${this.item.id}" class="itemBox">
+    <div data-id="${this.item.id}" id="itemBox${this.item.id}" class="itemBox" draggable='true'>
       <div>${this.item.title}</div>
       <div>${this.item.content}</div>
       <button data-id="${this.item.id}" class="removeBtn">remove</button>

@@ -6,4 +6,7 @@
   &:last-child {
     margin-bottom: 0;
   }
+  &.drapOver {
+    border: 1px dashed #000;
+  }
 }
