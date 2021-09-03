@@ -3,16 +3,17 @@ import storage from '../../model/storage';
 import ItemBox from '../ItemBox';
 import './styles.scss';
 export default class ListBox extends Controller {
+  dropState: string;
   constructor(target: any, props: any) {
     super(target, props);
     this.target = target;
+    this.dropState = '';
   }
   data() {
     this.state = { lists: storage.lists };
   }
   template() {
     const { lists } = this.state;
-
     return `
     <div class="listBox" droppable="true">
       ${lists
@@ -24,7 +25,8 @@ export default class ListBox extends Controller {
   }
   dragStart(e: any) {
     if (e.target.className === 'itemBox') {
-      console.log('drag start', e.target);
+      console.log('drag start');
+      document.getElementById(this.dropState)?.classList.remove('drapOver');
       e.dataTransfer.setData('text', e.target.id);
       e.target.classList.add('drapOver');
       e.effectAllowed = 'copyMove';
@@ -34,7 +36,10 @@ export default class ListBox extends Controller {
     e.preventDefault();
 
     if (e.target.className === 'itemBox') {
+      document.getElementById(this.dropState)?.classList.remove('drapOver');
       e.target.classList.add('drapOver');
+
+      this.dropState = e.target.id;
     }
   }
   drop(e: any) {
@@ -45,35 +50,28 @@ export default class ListBox extends Controller {
       const elDraggable = document.getElementById(id);
 
       e.target.classList.remove('drapOver');
+      e.dataTransfer.clearData();
       // const targetItemBox = document.querySelector('.drapOver');
       // targetItemBox?.classList.remove('drapOver');
-
-      e.dataTransfer.clearData();
+      console.log('drop');
     }
   }
   dragLeave(e: any) {
-    e.preventDefault();
-    console.log('dragLeave', e.target.classList);
-
     if (e.target.classList[0] === 'itemBox') {
-      console.log(e.target.classList);
-
-      e.target.classList.remove('drapOver');
     }
   }
   dragEnd(e: any) {
     e.target.classList.remove('drapOver');
+    console.log('dragEnd');
   }
 
   event() {
     if (this.target.childNodes[1].classList[0] === 'listBox') {
       this.target.addEventListener('dragstart', this.dragStart);
-      console.log(this.target);
-
+      this.target.addEventListener('dragleave', this.dragLeave);
       this.target.addEventListener('dragover', this.dragOver, false);
       this.target.addEventListener('drop', this.drop);
       this.target.addEventListener('dragend', this.dragEnd);
-      document.addEventListener('dragleave', this.dragLeave);
     }
   }
 
