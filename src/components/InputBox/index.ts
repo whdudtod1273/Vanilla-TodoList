@@ -46,7 +46,16 @@ export default class InputBox extends Controller {
     const button = this.target.querySelector('.registButton');
 
     button.addEventListener('click', () => {
-      const id = storage.lists[storage.lists.length - 1]['id'] + 1;
+      const nowDate = new Date();
+      const idDate =
+        `${nowDate.getFullYear()}` +
+        `${nowDate.getMonth() + 1}` +
+        `${nowDate.getDate()}` +
+        `${nowDate.getHours()}` +
+        `${nowDate.getMinutes()}`;
+
+      const id = Math.floor(Number(idDate) + Math.random() * Number(idDate));
+      // const id = storage.lists[storage.lists.length - 1]['id'] + 1;
       this.storage.lists.push({ id: id, title: this.titleInput.value, content: contentInput.value });
       this.props.setState(this.storage.lists);
     });
