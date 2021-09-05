@@ -4,6 +4,7 @@ import ItemBox from '../ItemBox';
 import './styles.scss';
 export default class ListBox extends Controller {
   dropState: string;
+
   constructor(target: any, props: any) {
     super(target, props);
     this.target = target;
@@ -23,54 +24,113 @@ export default class ListBox extends Controller {
      </div>
     `;
   }
-  dragStart(e: any) {
-    if (e.target.className === 'itemBox') {
-      console.log('drag start');
-      document.getElementById(this.dropState)?.classList.remove('drapOver');
-      e.dataTransfer.setData('text', e.target.id);
-      e.target.classList.add('drapOver');
-      e.effectAllowed = 'copyMove';
-    }
-  }
+  // dragStart(e: any) {
+  //   if (e.target.className === 'itemBox') {
+  //     console.log('drag start');
+  //     document.getElementById(this.dropState)?.classList.remove('drapOver');
+  //     e.dataTransfer.setData('text', e.target.id);
+  //     e.target.classList.add('drapOver');
+  //     e.effectAllowed = 'copyMove';
+  //   }
+  // }
   dragOver(e: any) {
     e.preventDefault();
-
     if (e.target.className === 'itemBox') {
       document.getElementById(this.dropState)?.classList.remove('drapOver');
       e.target.classList.add('drapOver');
-
       this.dropState = e.target.id;
     }
   }
-  drop(e: any) {
-    e.preventDefault();
+  // drop(e: any) {
+  //   e.preventDefault();
 
-    if (e.target.className === 'listBox') {
-      const id = e.dataTransfer.getData('text/plain');
-      const elDraggable = document.getElementById(id);
+  //   if (e.target.className === 'listBox') {
+  //     const id = e.dataTransfer.getData('text/plain');
+  //     const elDraggable = document.getElementById(id);
 
-      e.target.classList.remove('drapOver');
-      e.dataTransfer.clearData();
-      // const targetItemBox = document.querySelector('.drapOver');
-      // targetItemBox?.classList.remove('drapOver');
-      console.log('drop');
-    }
-  }
+  //     e.target.classList.remove('drapOver');
+  //     e.dataTransfer.clearData();
+  //     const targetItemBox = document.querySelector('.drapOver');
+  //     targetItemBox?.classList.remove('drapOver');
+  //     console.log('drop');
+  //   }
+  //   console.log('drop');
+  // }
   dragLeave(e: any) {
     if (e.target.classList[0] === 'itemBox') {
     }
   }
+
   dragEnd(e: any) {
     e.target.classList.remove('drapOver');
-    console.log('dragEnd');
+    document.querySelector('.drapOver')?.classList.remove('drapOver');
   }
 
   event() {
+    const { lists } = this.state;
+    let dropAble = false;
     if (this.target.childNodes[1].classList[0] === 'listBox') {
-      this.target.addEventListener('dragstart', this.dragStart);
+      this.target.addEventListener('dragstart', (e: any) => {
+        if (e.target.className === 'itemBox') {
+          dropAble = true;
+          console.log('drag start', dropAble);
+          document.getElementById(this.dropState)?.classList.remove('drapOver');
+          e.dataTransfer.setData('text', e.target.id);
+          e.target.classList.add('drapOver');
+          e.effectAllowed = 'copyMove';
+        }
+      });
       this.target.addEventListener('dragleave', this.dragLeave);
       this.target.addEventListener('dragover', this.dragOver, false);
-      this.target.addEventListener('drop', this.drop);
+      this.target.addEventListener('drop', async (e: any) => {
+        if (dropAble) {
+          console.log('drop이벤트가 실행', e.target, this.target);
+          e.preventDefault();
+          e.stopPropagation();
+
+          const id = e.dataTransfer.getData('text/plain');
+          const startElem = document.getElementById(id);
+          const startDataId = startElem?.dataset.id;
+          let startIndex = null;
+          let changeIndex = null;
+          let startData = null;
+          let dropData = null;
+
+          if (e.target.classList[0] === 'itemBox') {
+            await lists.map((item: any, index: number) => {
+              if (item.id === Number(startDataId)) {
+                startIndex = index;
+                startData = item;
+              }
+              if (item.id === Number(e.target.dataset.id)) {
+                changeIndex = index;
+                dropData = item;
+              }
+              return item;
+            });
+            await lists.splice(startIndex, 1);
+            await lists.splice(changeIndex, 0, startData);
+            this.setState({ lists: lists });
+            dropAble = false;
+          } else if (e.target.parentNode.classList[0] === 'itemBox') {
+            await lists.map((item: any, index: number) => {
+              if (item.id === Number(startDataId)) {
+                startIndex = index;
+                startData = item;
+              }
+              if (item.id === Number(e.target.parentNode.dataset.id)) {
+                changeIndex = index;
+                dropData = item;
+              }
+              return item;
+            });
+            await lists.splice(startIndex, 1);
+            await lists.splice(changeIndex, 0, startData);
+            this.setState({ lists: lists });
+            dropAble = false;
+          }
+        }
+      });
       this.target.addEventListener('dragend', this.dragEnd);
     }
   }
