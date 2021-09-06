@@ -14,8 +14,8 @@ export default class Aside {
           <li class="${this.nowPagePath === 'home' || this.nowPagePath === '' ? 'on' : ''}">
             <a href="/Vanilla-TodoList/#home">Todo</a>
           </li>
-          <li class="${this.nowPagePath === 'test' ? 'on' : ''}">
-            <a href="/Vanilla-TodoList/#test">Complete</a>
+          <li class="${this.nowPagePath === 'complete' ? 'on' : ''}">
+            <a href="/Vanilla-TodoList/#complete">Complete</a>
           </li>
         </ul>
       </nav>

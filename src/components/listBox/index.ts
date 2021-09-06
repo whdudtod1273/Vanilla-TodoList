@@ -11,7 +11,11 @@ export default class ListBox extends Controller {
     this.dropState = '';
   }
   data() {
-    this.state = { lists: storage.lists };
+    if (this.target.dataset.page === 'home-container') {
+      this.state = { lists: storage.lists };
+    } else if (this.target.dataset.page === 'complete-container') {
+      this.state = { lists: storage.confirmData };
+    }
   }
   template() {
     const { lists } = this.state;

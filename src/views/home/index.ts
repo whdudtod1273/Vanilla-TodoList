@@ -15,7 +15,7 @@ export default class Home extends Controller {
         <article data-id="input-container" class="inputContainer">
         
         </article>
-        <article data-id="list-container" class="listContainer">
+        <article data-id="list-container" data-page="home-container" class="listContainer">
 
         </article>
       </main>
