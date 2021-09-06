@@ -12,10 +12,10 @@ export default class Aside {
       <nav>
         <ul class="cb">
           <li class="${this.nowPagePath === 'home' || this.nowPagePath === '' ? 'on' : ''}">
-            <a href="/#home">Todo</a>
+            <a href="/Vanilla-TodoList//#home">Todo</a>
           </li>
           <li class="${this.nowPagePath === 'test' ? 'on' : ''}">
-            <a href="/#test">Complete</a>
+            <a href="/Vanilla-TodoList/#test">Complete</a>
           </li>
         </ul>
       </nav>
