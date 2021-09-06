@@ -1,12 +1,15 @@
 .itemBox {
+  width: 100%;
   box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
   border-radius: 5px;
   padding: 15px 20px;
   margin-bottom: 20px;
+  transition: all 0.3s;
   &:last-child {
     margin-bottom: 0;
   }
   &.drapOver {
-    border: 1px dashed #000;
+    border: 1px dashed rgb(139, 139, 139);
+    background-color: #dedede;
   }
 }
