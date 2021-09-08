@@ -4,6 +4,7 @@ const storage = {
       id: 0,
       title: '',
       content: '',
+      fix: false,
     },
   ],
   confirmData: [

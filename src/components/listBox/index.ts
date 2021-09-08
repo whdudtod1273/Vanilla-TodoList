@@ -19,6 +19,7 @@ export default class ListBox extends Controller {
   }
   template() {
     const { lists } = this.state;
+
     return `
     <div class="listBox" droppable="true">
       ${lists
@@ -28,15 +29,7 @@ export default class ListBox extends Controller {
      </div>
     `;
   }
-  // dragStart(e: any) {
-  //   if (e.target.className === 'itemBox') {
-  //     console.log('drag start');
-  //     document.getElementById(this.dropState)?.classList.remove('drapOver');
-  //     e.dataTransfer.setData('text', e.target.id);
-  //     e.target.classList.add('drapOver');
-  //     e.effectAllowed = 'copyMove';
-  //   }
-  // }
+
   dragOver(e: any) {
     e.preventDefault();
     if (e.target.className === 'itemBox') {
@@ -45,21 +38,7 @@ export default class ListBox extends Controller {
       this.dropState = e.target.id;
     }
   }
-  // drop(e: any) {
-  //   e.preventDefault();
 
-  //   if (e.target.className === 'listBox') {
-  //     const id = e.dataTransfer.getData('text/plain');
-  //     const elDraggable = document.getElementById(id);
-
-  //     e.target.classList.remove('drapOver');
-  //     e.dataTransfer.clearData();
-  //     const targetItemBox = document.querySelector('.drapOver');
-  //     targetItemBox?.classList.remove('drapOver');
-  //     console.log('drop');
-  //   }
-  //   console.log('drop');
-  // }
   dragLeave(e: any) {
     if (e.target.classList[0] === 'itemBox') {
     }
@@ -77,7 +56,6 @@ export default class ListBox extends Controller {
       this.target.addEventListener('dragstart', (e: any) => {
         if (e.target.className === 'itemBox') {
           dropAble = true;
-          console.log('drag start', dropAble);
           document.getElementById(this.dropState)?.classList.remove('drapOver');
           e.dataTransfer.setData('text', e.target.id);
           e.target.classList.add('drapOver');
@@ -88,7 +66,6 @@ export default class ListBox extends Controller {
       this.target.addEventListener('dragover', this.dragOver, false);
       this.target.addEventListener('drop', async (e: any) => {
         if (dropAble) {
-          console.log('drop이벤트가 실행', e.target, this.target);
           e.preventDefault();
           e.stopPropagation();
 

@@ -16,13 +16,17 @@ export default class ItemBox {
   }
   template() {
     return `
-    <div data-id="${this.item.id}" id="itemBox${this.item.id}" class="itemBox" draggable='true'>
+    <div data-id="${this.item.id}" id="itemBox${this.item.id}" 
+    class="itemBox ${this.item.fix ? 'fix' : ''}" draggable='true'>
       <div>${this.item.title}</div>
       <div>${this.item.content}</div>
       <button data-id="${this.item.id}" class="removeBtn">remove</button>
       ${
         this.target.dataset.page === 'home-container'
-          ? `<button data-id="${this.item.id}" class="completeBtn">complete</button>`
+          ? `
+            <button data-id="${this.item.id}" class="completeBtn">complete</button>
+            <button data-id="${this.item.id}" class="fixBtn">고정</button>
+          `
           : ''
       }
     </div>
@@ -31,6 +35,7 @@ export default class ItemBox {
   event() {
     this.target.addEventListener('click', (e: any) => {
       if (Number(e.target.dataset.id) === this.item.id && e.target.classList.value === 'removeBtn') {
+        // remove
         let newData: any = [];
         if (this.target.dataset.page === 'home-container') {
           newData = storage.lists.filter((item) => {
@@ -46,10 +51,11 @@ export default class ItemBox {
           this.listBox.itemBoxRender(storage.confirmData);
         }
       } else if (Number(e.target.dataset.id) === this.item.id && e.target.classList.value === 'completeBtn') {
+        // complete
         if (this.target.dataset.page === 'home-container') {
           let completeElem;
           let newData = storage.lists.filter((item) => {
-            if (item.id == Number(e.target.dataset.id)) {
+            if (item.id === Number(e.target.dataset.id)) {
               completeElem = item;
             }
             return item.id !== Number(e.target.dataset.id);
@@ -57,6 +63,26 @@ export default class ItemBox {
           storage.lists = newData;
           this.listBox.itemBoxRender(storage.lists);
           if (completeElem) storage.confirmData.push(completeElem);
+        }
+      } else if (Number(e.target.dataset.id) === this.item.id && e.target.classList.value === 'fixBtn') {
+        if (this.target.dataset.page === 'home-container') {
+          let fixIndex = null;
+          let fixItem = null;
+          let newData = storage.lists.map((item, index) => {
+            if (item.id === Number(e.target.dataset.id)) {
+              item.fix = true;
+              fixIndex = index;
+              fixItem = item;
+            } else {
+              item.fix = false;
+            }
+            return item;
+          });
+          if (fixIndex) newData.splice(fixIndex, 1);
+          if (fixItem) newData.splice(1, 0, fixItem);
+
+          storage.lists = newData;
+          this.listBox.itemBoxRender(storage.lists);
         }
       }
     });
