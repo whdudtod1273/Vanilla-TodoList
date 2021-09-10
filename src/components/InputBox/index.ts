@@ -3,7 +3,7 @@ import storage from '../../model/storage';
 import './styles.scss';
 
 export default class InputBox extends Controller {
-  storage: { lists: { id: number; title: string; content: string }[] };
+  storage: { lists: { id: number; title: string; content: string; update: string }[] };
   titleInput: any;
   constructor(target: any, props: any) {
     super(target, props);
@@ -56,7 +56,13 @@ export default class InputBox extends Controller {
 
       const id = Math.floor(Number(idDate) + Math.random() * Number(idDate));
       // const id = storage.lists[storage.lists.length - 1]['id'] + 1;
-      this.storage.lists.push({ id: id, title: this.titleInput.value, content: contentInput.value });
+
+      this.storage.lists.push({
+        id: id,
+        title: this.titleInput.value,
+        content: contentInput.value,
+        update: nowDate.getFullYear() + '/' + '0' + (nowDate.getMonth() + 1) + '/' + nowDate.getDate(),
+      });
       this.props.setState(this.storage.lists);
     });
   }

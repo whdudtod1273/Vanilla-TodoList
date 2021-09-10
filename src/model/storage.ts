@@ -5,6 +5,7 @@ const storage = {
       title: '',
       content: '',
       fix: false,
+      update: '',
     },
   ],
   confirmData: [
