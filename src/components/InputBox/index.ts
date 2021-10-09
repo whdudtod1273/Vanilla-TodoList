@@ -63,6 +63,8 @@ export default class InputBox extends Controller {
         content: contentInput.value,
         update: nowDate.getFullYear() + '/' + '0' + (nowDate.getMonth() + 1) + '/' + nowDate.getDate(),
       });
+      console.log(this.props);
+
       this.props.setState(this.storage.lists);
     });
   }
